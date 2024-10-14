@@ -11,6 +11,11 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "fg-primary": "var(--foreground-primary)",
+        "fg-tertiary": "var(--foreground-tertiary)",
+        "bg-screen": "var(--background-screen)",
+        "bg-ui-active": "var(--background-ui-active)",
+        "border-ui": "var(--border-ui)",
       },
     },
   },
