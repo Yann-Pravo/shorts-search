@@ -26,7 +26,7 @@ const navigation = [
     items: [
       {
         name: "Shorts",
-        href: "#",
+        href: "/shorts",
         icon: BoltIcon,
       },
       {
@@ -55,8 +55,8 @@ export default function RootLayout(
 ) {
   const pathname = usePathname();
   return (
-    <div className="bg-bg-screen">
-      <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
+    <div className="">
+      <div className="fixed inset-y-0 z-50 flex w-60 flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border-ui px-6 py-5">
           <div className="flex shrink-0 items-center">
             <Image
@@ -112,7 +112,7 @@ export default function RootLayout(
           </nav>
         </div>
       </div>
-      <main>{props.children}</main>
+      <main className="ml-60">{props.children}</main>
     </div>
   );
 }
