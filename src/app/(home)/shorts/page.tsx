@@ -1,13 +1,17 @@
-import { Short } from "@/app/types";
 import Form from "./_components/form";
+import { fetchShortsAction } from "./_components/fetch-shorts.action";
 
-export default async function Shorts() {
-  const data = await fetch(process.env.NEXT_PUBLIC_API_URL || "");
-  const shorts: Short[] = await data.json();
+export default async function Shorts({
+  searchParams,
+}: {
+  searchParams?: { category?: string };
+}) {
+  const result = await fetchShortsAction(searchParams?.category);
+  const shorts = result?.data;
 
   return (
     <div className="px-10 py-3">
-      <Form initialShorts={shorts} />
+      {shorts && <Form initialShorts={shorts} />}
     </div>
   );
 }

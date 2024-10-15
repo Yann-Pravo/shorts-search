@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { classNames } from "../utils";
 import {
   BoltIcon,
   ChartPieIcon,
@@ -11,6 +10,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const navigation = [
   {
@@ -78,12 +78,12 @@ export default function RootLayout(
                     )}
                     <ul role="list" className="space-y-1">
                       {product.items.map((item) => {
-                        const isActive = pathname.startsWith(item.href);
+                        const isActive = pathname === item.href;
                         return (
                           <li key={item.name}>
                             <a
                               href={item.href}
-                              className={classNames(
+                              className={cn(
                                 isActive
                                   ? "bg-bg-ui-active text-fg-primary"
                                   : "text-fg-tertiary hover:bg-bg-ui-active hover:text-fg-primary",
@@ -92,7 +92,7 @@ export default function RootLayout(
                             >
                               <item.icon
                                 aria-hidden="true"
-                                className={classNames(
+                                className={cn(
                                   isActive
                                     ? "text-fg-primary"
                                     : "text-fg-tertiary group-hover:text-fg-primary",

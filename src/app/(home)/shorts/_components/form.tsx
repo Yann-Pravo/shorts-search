@@ -1,42 +1,44 @@
 "use client";
 
 import Image from "next/image";
-import { Short, ShortType } from "@/app/types";
+import { Short, ShortCategories } from "@/lib/types";
 import { useOptimistic, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { usePathname, useRouter } from "next/navigation";
 
 type FormProps = {
   initialShorts: Short[];
 };
 
 export default function Form({ initialShorts }: FormProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [shorts, setShorts] = useOptimistic(initialShorts);
-  const [selectedShortTypes, setSelectedShortTypes] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>();
+
+  const onChangeCategory = (selectedCategory: string) => {
+    const nextCategory =
+      selectedCategory === category ? undefined : selectedCategory;
+    setCategory(nextCategory);
+
+    router.push(
+      `${pathname}${nextCategory ? `?category=${nextCategory}` : ""}`
+    );
+  };
 
   return (
     <>
       <div className="text-title font-semibold py-1 mt-6 mb-4">Shorts</div>
       <div className="flex space-x-2 py-3">
-        {Object.keys(ShortType).map((shortType) => {
-          const isSelected = selectedShortTypes.includes(shortType);
-          return (
-            <Badge
-              key={shortType}
-              variant={isSelected ? "default" : "outline"}
-              onClick={() =>
-                isSelected
-                  ? setSelectedShortTypes(
-                      selectedShortTypes.filter(
-                        (selectedShortType) => selectedShortType !== shortType
-                      )
-                    )
-                  : setSelectedShortTypes([...selectedShortTypes, shortType])
-              }
-            >
-              {ShortType[shortType as keyof typeof ShortType]}
-            </Badge>
-          );
-        })}
+        {Object.keys(ShortCategories).map((shortCategory) => (
+          <Badge
+            key={shortCategory}
+            variant={shortCategory === category ? "default" : "outline"}
+            onClick={() => onChangeCategory(shortCategory)}
+          >
+            {ShortCategories[shortCategory as keyof typeof ShortCategories]}
+          </Badge>
+        ))}
       </div>
       <div className="grid grid-cols-5 gap-3 mt-6">
         {shorts.map((short) => (
@@ -54,7 +56,7 @@ export default function Form({ initialShorts }: FormProps) {
                   {short.title}
                 </div>
                 <div className="text-tag p-1 border rounded-md text-fg-inactive inline">
-                  {ShortType[short.category]}
+                  {ShortCategories[short.category]}
                 </div>
               </div>
             </div>
