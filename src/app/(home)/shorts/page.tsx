@@ -1,4 +1,4 @@
-import Form from "./_components/form";
+import Form from "./_components/shorts";
 import { fetchShortsAction } from "./_components/fetch-shorts.action";
 
 export default async function Shorts({

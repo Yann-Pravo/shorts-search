@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { Short, ShortCategories } from "@/lib/types";
-import { useOptimistic, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { usePathname, useRouter } from "next/navigation";
+import { InputSearch } from "@/components/ui/input-search";
 
 type FormProps = {
   initialShorts: Short[];
@@ -13,8 +14,14 @@ type FormProps = {
 export default function Form({ initialShorts }: FormProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [shorts, setShorts] = useOptimistic(initialShorts);
+  const [searchValue, setSearchValue] = useState("");
+  const [shorts, setShorts] = useState(initialShorts);
   const [category, setCategory] = useState<string>();
+
+  useEffect(() => {
+    setShorts(initialShorts);
+    setSearchValue("");
+  }, [initialShorts]);
 
   const onChangeCategory = (selectedCategory: string) => {
     const nextCategory =
@@ -26,8 +33,25 @@ export default function Form({ initialShorts }: FormProps) {
     );
   };
 
+  const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const filteredShorts = initialShorts.filter(
+      (short) =>
+        short.title.includes(e.target.value) ||
+        short.category.includes(e.target.value)
+    );
+
+    setShorts(filteredShorts);
+    setSearchValue(e.target.value);
+  };
+
   return (
     <>
+      <InputSearch
+        className="w-[400px]"
+        placeholder="Search..."
+        onChange={onSearch}
+        value={searchValue}
+      />
       <div className="text-title font-semibold py-1 mt-6 mb-4">Shorts</div>
       <div className="flex space-x-2 py-3">
         {Object.keys(ShortCategories).map((shortCategory) => (
