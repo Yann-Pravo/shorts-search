@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Short, ShortCategories } from "@/lib/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { InputSearch } from "@/components/ui/input-search";
 
 type ShortsProps = {
@@ -14,9 +14,12 @@ type ShortsProps = {
 export default function Shorts({ initialShorts }: ShortsProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useSearchParams();
   const [searchValue, setSearchValue] = useState("");
   const [shorts, setShorts] = useState(initialShorts);
-  const [category, setCategory] = useState<string>();
+  const [category, setCategory] = useState<string | undefined>(
+    params.get("category") || undefined
+  );
 
   useEffect(() => {
     setShorts(initialShorts);

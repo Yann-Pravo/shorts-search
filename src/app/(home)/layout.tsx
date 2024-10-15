@@ -17,7 +17,7 @@ const navigation = [
     id: 1,
     items: [
       { name: "Home", href: "/", icon: HomeIcon },
-      { name: "Profile", href: "#", icon: UserIcon },
+      { name: "Profile", href: "/profile", icon: UserIcon },
     ],
   },
   {
@@ -55,7 +55,7 @@ export default function RootLayout(
 ) {
   const pathname = usePathname();
   return (
-    <div className="">
+    <div className="h-full">
       <div className="fixed inset-y-0 z-50 flex w-60 flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border-ui px-6 py-5">
           <div className="flex shrink-0 items-center">
@@ -112,7 +112,7 @@ export default function RootLayout(
           </nav>
         </div>
       </div>
-      <main className="ml-60">{props.children}</main>
+      <main className="ml-60 h-full">{props.children}</main>
     </div>
   );
 }
