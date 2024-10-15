@@ -7,11 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { usePathname, useRouter } from "next/navigation";
 import { InputSearch } from "@/components/ui/input-search";
 
-type FormProps = {
+type ShortsProps = {
   initialShorts: Short[];
 };
 
-export default function Form({ initialShorts }: FormProps) {
+export default function Shorts({ initialShorts }: ShortsProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [searchValue, setSearchValue] = useState("");
@@ -36,8 +36,8 @@ export default function Form({ initialShorts }: FormProps) {
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const filteredShorts = initialShorts.filter(
       (short) =>
-        short.title.includes(e.target.value) ||
-        short.category.includes(e.target.value)
+        short.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        short.category.toLowerCase().includes(e.target.value.toLowerCase())
     );
 
     setShorts(filteredShorts);
