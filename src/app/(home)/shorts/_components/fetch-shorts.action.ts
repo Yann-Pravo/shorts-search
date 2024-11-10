@@ -1,10 +1,8 @@
 "use server";
 
-import { z } from "zod";
 import { Short, ShortCategories } from "@/lib/types";
 import { redirect } from "next/navigation";
-
-const fetchShortsSchema = z.string().optional();
+import { fetchShortsSchema } from "./fetch-shorts.schema";
 
 type ReturnType = {
   data?: Short[];

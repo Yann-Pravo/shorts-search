@@ -76,7 +76,7 @@ export default function Shorts({ initialShorts }: ShortsProps) {
               src={short.thumbnail}
               alt={short.title}
             />
-            <div className="absolute w-full h-2/4 bottom-0 bg-gradient-to-b from-gradient-from to-gradient-to" />
+            <div className="absolute rounded-xl w-full h-2/4 bottom-0 bg-gradient-to-b from-gradient-from to-gradient-to" />
             <div className="relative h-full w-full flex items-end px-2.5 py-3">
               <div>
                 <div className="text-fg-primary-reverse text-sm font-medium mb-1">
